@@ -123,12 +123,38 @@ export const CyberQuiz = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-2 text-slate-400">
-          <Clock size={18} />
-          <span className={cn("font-mono", timeLeft < 60 && "text-danger")}>
-            {formatTime(timeLeft)}
-          </span>
-        </div>
+        <div className={cn("inline-flex items-center justify-center gap-3 rounded-xl border px-4 py-2 shadow-md transition-all duration-300",
+    timeLeft <= 10
+      ? "bg-danger/15 border-danger/50"
+      : timeLeft <= 20
+        ? "bg-warning/15 border-warning/50"
+        : "bg-slate-800/70 border-slate-700"
+  )}
+>
+  <Clock
+    size={21}
+    className={cn(
+      timeLeft <= 10
+        ? "text-danger"
+        : timeLeft <= 20
+          ? "text-warning"
+          : "text-slate-300"
+    )}
+  />
+
+  <span
+    className={cn(
+      "font-mono text-xl sm:text-2xl font-extrabold tracking-wide tabular-nums transition-colors duration-300",
+      timeLeft <= 10
+        ? "text-danger animate-pulse drop-shadow-[0_0_8px_rgba(239,68,68,0.7)]"
+        : timeLeft <= 20
+          ? "text-warning drop-shadow-[0_0_6px_rgba(234,179,8,0.5)]"
+          : "text-slate-100"
+    )}
+  >
+    {formatTime(timeLeft)}
+  </span>
+</div>
         <span className="text-slate-400 text-sm">
           Question {current + 1} of {questions.length}
         </span>
